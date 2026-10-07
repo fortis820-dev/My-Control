@@ -1,0 +1,126 @@
+/*
+/*	LINK 30I
+	CNC=..\..\3rdParty\MExec\30i\F30i_01.MEX
+	SERN=1608
+	VERN=00
+	P-CODE_NUMBER=02		/*	Pcode number used
+
+	P9000=00000100			/*	Bit 1 : M128 	ROM memory max size used 128k
+							/*	Bit 2 : M256 	ROM memory max size used 256k
+							/*	Bit 3 : M512 	ROM memory max size used 512k
+							/*	Bit 4 : M1MB 	ROM memory max size used 1024k
+							/*	Bit 5 : M2MB 	ROM memory max size used 2048k
+							/*	Bit 6 : M3MB 	ROM memory max size used 3072k
+
+	P9002=10000000			/*	Bit 0 : TCAL 	Subprogram call using a T code enable
+							/*	Bit 1 : ACL1 	Subprogram call using a specific code (O9004/#146)
+							/*	Bit 2 : ACL2 	Subprogram call using a specific code (O9005/#147)
+							/*	Bit 5 : DAUX 	When the power is turned on, the conversational macro function is executed
+							/*	Bit 6 : PWSR 	P CODE workpiece number search is enable
+							/*	Bit 7 : EXT1 	The extended functions (CNC program reference/write, cutting distance accumulation/preset
+							/*					and reader/puncher interface control) are enabled
+
+	P9004=00000011			/*	Bit 0 :	SP_G_B	For T series systems, these bits specify which G code system (A, B, or C)
+							/*					was used to create P-CODE programs.
+							/*	Bit	1 : SP_G_C	SP_G_C 	SP_G_B 	G code system in P-CODE programs
+							/*					0 		0 		G code system A
+							/*					0 		1 		G code system B
+							/*					1 		0		G code system C
+							/*					1 		1		G code system C
+							/*	Bit 7 : CUTLG 	Cutting distance accumulation/preset (#8554) is enabled
+
+	P9005=10000000			/*	Bit 0 : AX1CL 	Special macro call using an axis address is enable (1st axis)
+							/*	Bit 1 : AX2CL 	Special macro call using an axis address is enable (2nd axis)
+							/*	Bit 2 : AX3CL 	Special macro call using an axis address is enable (3rd axis)
+							/*	Bit 3 : AX4CL 	Special macro call using an axis address is enable (4th axis)
+							/*	Bit 4 : AXCLS 	In macro call using an axis address:
+							/*					0: O9009 is called at all times as an execution macro.
+							/*					1: A different execution macro is called for each axis.
+							/*					1st axis ? O9031 is called.
+							/*					2nd axis ? O9032 is called.
+							/*					:
+							/*					n-th axis ? O9030+n is called.
+							/*	Bit 7 : TMACC 	Special macro call using a T code is enabled
+
+	P9008=00100000			/*	Bit 0 : AX5CL 	Special macro call using an axis address is enable (5th axis)
+							/*	Bit 1 : AX6CL 	Special macro call using an axis address is enable (6th axis)
+							/*	Bit 2 : AX7CL 	Special macro call using an axis address is enable (7th axis)
+							/*	Bit 3 : AX8CL 	Special macro call using an axis address is enable (8th axis)
+							/*	Bit 4 :	MDLP 	This bit specifies whether to cause a G code (G167 or G code set by a
+							/*					compile parameter No. 9034) for canceling a G code-specified modal
+							/*					call to call:
+							/*					0: Nothing (modal calls are canceled and nothing is called).
+							/*					1: O9006 (modal calls are canceled and O9006 is called).
+							/*	Bit 5 : MCARG 	In a G/M code macro call, P, L, N, and G are used as arguments.
+							/*					When this parameter is set to 1, the argument correspondence is: G#10,
+							/*					L#12, N#14, P#16.
+
+	P9010=60				/*	M code for calling program number 9001 as a subprogram
+	P9011=0					/*	M code for calling program number 9002 as a subprogram
+	P9012=0					/*	M code for calling program number 9003 as a subprogram
+
+	P9013=0 				/*	G code for calling program number 9010 as a macro
+	P9014=991				/*	G code for calling program number 9011 as a macro
+	P9015=992				/*	G code for calling program number 9012 as a macro
+	P9016=990				/*	G code for calling program number 9013 as a macro
+	P9017=925				/*	G code for calling program number 9014 as a macro
+	P9018=0					/*	G code for calling program number 9015 as a macro
+	P9019=0					/*	G code for calling program number 9016 as a macro
+	P9020=270				/*	G code for calling program number 9017 as a macro
+	P9021=271				/*	G code for calling program number 9018 as a macro
+	P9022=273				/*	G code for calling program number 9019 as a macro
+	P9023=541				/*	M code for calling program number 9020 as a macro
+	P9024=542				/*	M code for calling program number 9021 as a macro
+	P9025=0					/*	M code for calling program number 9022 as a macro
+	P9026=0					/*	M code for calling program number 9023 as a macro
+	P9027=0					/*	M code for calling program number 9024 as a macro
+	P9028=0					/*	M code for calling program number 9025 as a macro
+	P9029=0					/*	M code for calling program number 9026 as a macro
+	P9030=0					/*	M code for calling program number 9027 as a macro
+	P9031=0					/*	M code for calling program number 9028 as a macro
+	P9032=29				/*	M code for calling program number 9029 as a macro
+
+	P9033=1098				/* M code for calling a user program as a subprogram
+
+	P9038=1                 /*	Conversational macro main program number (for user screen 1)
+	P9039=8000              /*	Auxiliary macro main program number
+	P9040=0					/*	Conversational macro main program number (for user screen 2)
+	P9041=0					/*	Conversational macro main program number (for user screen 3)
+	P9042=0					/*	Code for subprogram call using a range specification M code (lower limit)
+	P9043=0					/*	Code for subprogram call using a range specification M code (upper limit)
+
+	P9045=0					/*	Start G code of macro call using an G code (specification of 1 set)
+	P9046=0					/*	Count of macro call using an G code (specification of 1 set)
+	P9047=0					/*	Start program number of macro call using an G code (specification of 1 set)
+	P9048=0					/*	Graphic coordinate system shift amount (X-axis)
+	P9049=0					/*	Graphic coordinate system shift amount (Y-axis)
+
+	P9120 = 120            	/* Start M code of macro call using an M code (specification of 3 sets)(1st set)
+	P9121 = 4               /* Count of macro call using an M code (specification of 3 sets)(1st set)
+	P9122 = 9120           	/* Start program number of macro call using an M code (specification of 3 sets) (1st set)
+	P9123 = 330             /* Start M code of macro call using an M code (specification of 3 sets)(2nd set)
+	P9124 = 70              /* Count of macro call using an M code (specification of 3 sets)(2nd set)
+	P9125 = 9330           	/* Start program number of macro call using an M code (specification of 3 sets) (2nd set)
+	P9126 = 7000            /* Start M code of macro call using an M code (specification of 3 sets)(2nd set)
+	P9127 = 612             /* Count of macro call using an M code (specification of 3 sets)(2nd set)
+	P9128 = 7000         	/* Start program number of macro call using an M code (specification of 3 sets) (2nd set)
+
+	FILE=bin\O9029
+	FILE=bin\O990_CheckInputOutput
+	FILE=bin\O9001_ManagementSubProgram
+	FILE=bin\O9202_BarloaderExterne
+	FILE=bin\O9008
+	FILE=bin\O8000-#2to3
+	FILE=bin\O9120_M120-#2
+	FILE=bin\O9330-#2
+	FILE=bin\O9925-#2
+	FILE=bin\O7000
+	FILE=bin\O9016_ExternalCorrection
+	FILE=bin\O9017_ExtCorrInsert
+	FILE=bin\O9018_ExtCorrErase
+	FILE=bin\O9019_ExtToolCorr
+	FILE=bin\O9020_ProfinetPumpHP1
+	FILE=bin\O9021_ProfinetPumpHP2
+
+/*	Link  file's
+/*
